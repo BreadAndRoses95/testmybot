@@ -93,16 +93,15 @@ module.exports = class TestMyBot {
     }
 
     convos.forEach((convo) => {
+      debug('adding test case ' + convo.header.toString())
+      testcaseCb(convo, (testcaseDone) => {
+        debug('running testcase ' + convo.header.toString())
       var rest = syncRequest('DELETE', 'https://api.dialogflow.com/v1/contexts?sessionId=12345', {
   headers: {
     'Authorization': 'Bearer 9a90819019c14316b8950a3267fa7107'
     }
   });
       console.log("Context deleted");
-      debug('adding test case ' + convo.header.toString())
-      testcaseCb(convo, (testcaseDone) => {
-        debug('running testcase ' + convo.header.toString())
-
         convo.Run(this.container)
           .then(() => {
             debug(convo.header.name + ' ready, calling done function.')
