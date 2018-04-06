@@ -101,7 +101,7 @@ module.exports = class TestMyBot {
     'Authorization': 'Bearer 9a90819019c14316b8950a3267fa7107'
     }
   });
-      console.log("Context deleted");
+      debug("Context deleted");
         convo.Run(this.container)
           .then(() => {
             debug(convo.header.name + ' ready, calling done function.')
