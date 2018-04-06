@@ -13,6 +13,10 @@ const globals = require('./globals')
 module.exports = class TestMyBot {
   constructor (configToSet = {}, convodirs = [], configfile = null) {
     this.config = readConfig(configToSet, configfile)
+
+    if (process.env.header){
+      this.config.botium.Capabilities.SIMPLEREST_HEADERS_TEMPLATE = "{\"Authorization\":\"Bearer "+ process.env.header + "\"}"
+    }
     debug(JSON.stringify(this.config, null, 2))
 
     this.driver = new BotDriver()
