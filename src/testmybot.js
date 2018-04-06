@@ -2,6 +2,7 @@ const util = require('util')
 const async = require('async')
 const _ = require('lodash')
 const debug = require('debug')('testmybot-main')
+const syncRequest = require('sync-request')
 
 const BotDriver = require('botium-core').BotDriver
 
@@ -92,6 +93,12 @@ module.exports = class TestMyBot {
     }
 
     convos.forEach((convo) => {
+      var rest = syncRequest('DELETE', 'https://api.dialogflow.com/v1/contexts?sessionId=12345', {
+  headers: {
+    'Authorization': 'Bearer 9a90819019c14316b8950a3267fa7107'
+    }
+  });
+      console.log("Context deleted");
       debug('adding test case ' + convo.header.toString())
       testcaseCb(convo, (testcaseDone) => {
         debug('running testcase ' + convo.header.toString())
